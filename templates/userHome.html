@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Python Flask Bucket List App</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="../static/signup.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-1.11.2.min.js" integrity="sha256-Ls0pXSlb7AYs7evhd+VLnWsZ/AqEHcXBeMZUycz/CcA=" crossorigin="anonymous"></script>    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+
+    <script>
+	
+	$(function (){
+		$.ajax({
+			url : '/getWish',
+			type : 'GET',
+			success: function(res){
+				
+
+
+							    
+				
+				
+				var wishObj = JSON.parse(res);
+				$('#ulist').empty();
+				$('#listTemplate').tmpl(wishObj).appendTo('#ulist');
+
+				
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+	});
+
+	
+    </script>
+
+	<style>
+    .trash {
+        color: rgb(209, 91, 71);
+    }
+    .panel-body .checkbox {
+        display: inline-block;
+        margin: 0px;
+    }
+    .list-group {
+        margin-bottom: 0px;
+    }
+	</style>
+	
+  </head>
+
+  <body>
+  
+	<div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/showAddWish">Add Wish</a></li>
+            <li role="presentation" class="active"><a href="/logout">Logout</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Python Flask App</h3>
+      </div>
+
+
+      
+  
+	<script id="listTemplate" type="text/x-jQuery-tmpl">
+       <li class="list-group-item">
+			<div class="checkbox">
+				<label>
+					<input type = "checkbox" value =""> ${Title}
+				</label>
+			</div>
+			<div class="pull-right action-buttons">
+				<a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
+			</div>
+		</li>
+	</script>
+
+	
+	<div class="row">
+      <div class="col-md-12">
+        <div class="panel-body">
+          <ul id="ulist" class="list-group">
+            
+
+          </ul>
+        </div>
+      </div>
+    </div>
+	
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="editModalLabel">Update Wish</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form">
+						<div class="form-group">
+							<label for="recipient-name" class="control-label">Title:</label>
+							<input type="text" class="form-control" id="editTitle">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">Description:</label>
+							<textarea class="form-control" id="editDescription"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" id="btnUpdate" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+    
+	
+
+    
+
+      
+
+
+
+      <footer class="footer">
+        <p>&copy; Company 2015</p>
+      </footer>
+
+    </div>
+
+
+
+
+  </body>
+
+</html>
